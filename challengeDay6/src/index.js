@@ -5,19 +5,20 @@ function saveCountry(country) {
     localStorage.setItem(COUNTRY_LS, country)
 }
 
-function handleChange(event) {
-    const currentCountry = countrySelect.selectedOptions[0].value;
+function handleChange() {
+    const currentCountry = countrySelect.value;
     saveCountry(currentCountry);
 }
 
 function setCountry(country) {
-    countrySelect.value = country;
+    const option = document.querySelector(`option[value="${country}"]`);
+    option.selected = true;
 }
 
 function loadCountry() {
-    const country = localStorage.getItem(COUNTRY_LS);
-    if (country !== null) {
-        setCountry(country);
+    const loadedCountry = localStorage.getItem(COUNTRY_LS);
+    if (loadedCountry) {
+        setCountry(loadedCountry);
     }
 }
 
