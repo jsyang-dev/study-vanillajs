@@ -1,74 +1,30 @@
-const body = document.querySelector("body");
-const result = document.querySelector(".js-result");
-const number = document.querySelectorAll(".js-number");
-const operator = document.querySelectorAll(".js-operator");
-const equal = document.querySelector(".js-equal");
-const cancel = document.querySelector(".js-cancel");
+// You're gonna need this
+const NINE_HOURS_MILLISECONDS = 32400000;
 
-let resultValue = 0;
-let inputValue = 0;
-let operatorValue = "";
+const clockTitle = document.querySelector("h3");
 
-function paintImage() {
-    const image = new Image();
-    image.src = `images/bg.jpg`;
-    image.classList.add("bgImage");
-    body.appendChild(image);
-}
+function getTime() {
+  // Don't delete this.
+  const xmasDay = new Date("2021-12-24:00:00:00+0900");
 
-function handleNumberClick(event) {
-    inputValue = parseInt(inputValue + event.target.innerText);
-    result.innerHTML = inputValue;
-}
+  const now = new Date();
+  const diffMilliseconds = new Date(xmasDay - now - NINE_HOURS_MILLISECONDS);
+  const date = Math.ceil(diffMilliseconds / (1000 * 60 * 60 * 24));
+  const hours = diffMilliseconds.getHours();
+  const minutes = diffMilliseconds.getMinutes();
+  const seconds = diffMilliseconds.getSeconds();
 
-function operate() {
-    switch (operatorValue) {
-        case "+":
-            resultValue = resultValue + inputValue;
-            break;
-        case "-":
-            resultValue = resultValue - inputValue;
-            break;
-        case "*":
-            resultValue = resultValue * inputValue;
-            break;
-        case "/":
-            resultValue = Math.round(resultValue / inputValue);
-            break;
-    }
-    result.innerHTML = resultValue;
-}
+  const dateText = `${date < 10 ? `0${date}` : date}`;
+  const hoursText = `${hours < 10 ? `0${hours}` : hours}`;
+  const minutesText = `${minutes < 10 ? `0${minutes}` : minutes}`;
+  const secondsText = `${seconds < 10 ? `0${seconds}` : seconds}`;
 
-function handleOperatorClick(event) {
-    if (operatorValue !== "") {
-        operate();
-    } else if (inputValue !== 0) {
-        resultValue = inputValue;
-    }
-
-    inputValue = 0;
-    operatorValue = event.target.innerText;
-}
-
-function handleEqualClick() {
-    operate();
-    inputValue = 0;
-    operatorValue = "";
-}
-
-function handleCancelClick() {
-    resultValue = 0;
-    inputValue = 0;
-    operatorValue = "";
-    result.innerHTML = resultValue;
+  clockTitle.innerText = `${dateText}d ${hoursText}h ${minutesText}m ${secondsText}s`;
 }
 
 function init() {
-    number.forEach(item => item.addEventListener("click", handleNumberClick));
-    operator.forEach(item => item.addEventListener("click", handleOperatorClick));
-    equal.addEventListener("click", handleEqualClick);
-    cancel.addEventListener("click", handleCancelClick);
-    paintImage();
+  getTime();
+  setInterval(getTime, 1000);
 }
 
 init();

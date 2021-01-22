@@ -1,43 +1,23 @@
-const text = document.querySelector(".js-text")
-const form = document.querySelector(".js-form");
-const range = form.querySelector("input[type=range]");
-const number = form.querySelector("input[type=number]");
-const score = document.querySelector(".js-score");
-const result = document.querySelector(".js-result");
+const SMALL_CLASS = "small";
+const MEDIUM_CLASS = "medium";
+const LARGE_CLASS = "large";
 
-let maxNumber;
+const body = document.querySelector("body");
 
-function handleChange() {
-    maxNumber = range.value;
-    number.max = maxNumber;
-    text.innerHTML = `Generate a number between 0 and ${maxNumber}`;
-    number.value = "";
-    number.focus();
-}
-
-function genRandom() {
-    return Math.floor(Math.random() * maxNumber) + 1;
-}
-
-function handleSubmit(event) {
-    event.preventDefault();
-    const machineNumber = genRandom();
-    const playerNumber = number.value;
-
-    score.innerHTML = `You chose: ${playerNumber}, the machine chose: ${machineNumber}.`;
-    if (playerNumber > machineNumber) {
-        result.innerHTML = "You won!"
-    } else if (playerNumber < machineNumber) {
-        result.innerHTML = "You lost!"
+function handleResize() {
+    body.classList.remove(SMALL_CLASS, MEDIUM_CLASS, LARGE_CLASS);
+    if (window.innerWidth < 300) {
+        body.classList.add(SMALL_CLASS);
+    } else if (window.innerWidth < 600) {
+        body.classList.add(MEDIUM_CLASS);
     } else {
-        result.innerHTML = "Drew!"
+        body.classList.add(LARGE_CLASS);
     }
 }
 
 function init() {
-    range.addEventListener("change", handleChange);
-    form.addEventListener("submit", handleSubmit);
-    handleChange();
+    window.addEventListener("resize", handleResize);
+    handleResize();
 }
 
 init();
