@@ -1,0 +1,103 @@
+body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+
+    background-color: #333333;
+    background-size: cover;
+    background-position: center center;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+    animation-delay: 0.5s;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    background: none;
+    appearance: none;
+    border: 0;
+    font-size: 22px;
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+input::placeholder {
+    color: white;
+}
+
+input:focus,
+input:active {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form {
+    display: none;
+}
+
+.showing {
+    display: block;
+}
+
+.bgImage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    animation: fadeIn 0.5s linear;
+}
+
+.clock {
+    font-size: 10em;
+}
+
+.greeting {
+    font-size: 36px;
+}
+
+.weather {
+    font-size: 12px;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+.place {
+    font-size: 12px;
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+}
